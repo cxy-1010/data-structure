@@ -180,6 +180,55 @@ T middle2(const LinkList<T>& a)
     }
     return slow->data;
 }
+//求最大值个数
+template<class T> 
+int maxcount(const LinkList<T>& a)
+{
+    int count=0;
+    LinkNode<T>* p=a.head->next;
+    T tmax=p->data;//设置一个暂时的最大值使得只用遍历一遍
+    while(p!=nullptr)
+    {
+        if(p->data>tmax)
+        {
+            tmax=p->data;
+            count=1;
+        }
+        else if(p->data==tmax)
+            count++;
+        p=p->next;
+    }
+    return count;
+}
+//删除最大值的节点
+template<class T>
+void Deletemax(LinkList<T>& a)
+{
+    LinkNode<T>* p=a.head->next;
+    T max=p->data;
+    while(p!=nullptr)
+    {
+        if(p->data>max)
+            max=p->data;
+        p=p->next;
+    }
+    LinkNode<T>* pre=a.head //考虑到第一个可能是最大值
+    p=pre->next;//要注意需要更新p
+    while(p!=nullptr)
+    {
+        if(p->data==max)
+        {
+            pre->next=p->next;
+            delete p;
+            p=pre->next;
+        }
+        else//注意这里有个else因为上一个已经完成了
+        {
+            p=p->next;
+            pre=pre->next;
+        }
+    }
+}
 int main()
 {
     return 0;
