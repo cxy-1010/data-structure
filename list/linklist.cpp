@@ -229,6 +229,23 @@ void Deletemax(LinkList<T>& a)
         }
     }
 }
+//逆置单链表
+//1.头插法
+template<class T>
+void Reverse1(LinkList<T>& a)
+{
+    LinkNode<T>* p=a.head->next;
+    a.head->next=nullptr;
+    LinkNode<T>* temp;
+    while(p!=nullptr)
+    {
+        temp=p->next;
+        p->next=head->next;
+        head->next=p;
+        p=temp;
+    }
+}
+//
 int main()
 {
     return 0;
