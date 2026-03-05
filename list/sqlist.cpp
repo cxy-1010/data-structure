@@ -64,7 +64,7 @@ public:
     bool setelem(int n,const T& a)
     {
         if(n<0||n>=length) return false;
-        data[i]=a;
+        data[n]=a;
         return true;
     }
     int getno(const T & e)
@@ -115,9 +115,9 @@ void reserve(sqlist<T> &a)
 template <class T>
 bool deleteelems(int index,int n,sqlist<T> & a)
 {
-    if(index+n>a.length||i<0||k<1) return false;
-    for(int j=i+k;j<a.length;j++)
-        a.data[j-k]=a.data[j];
+    if(index+n>a.length||index<0||n<1) return false;
+    for(int j=index+n;j<a.length;j++)
+        a.data[j-n]=a.data[j];
     a.length-=n;
     return true;
 }

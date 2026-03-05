@@ -17,7 +17,7 @@ public:
     LinkNode<T>* head;
 
     LinkList() {head=new LinkNode<T>();}
-    ~LinkLIst()
+    ~LinkList()
     {
         LinkNode<T>* pre,p;
         pre=head;p=pre->next;
@@ -129,9 +129,9 @@ public:
     void CreatelistR(T a[],int n)
     {
         LinkNode<T>* temp=head;
-        for(int i=0;i;<n;i++)
+        for(int i=0;i<n;i++)
         {
-            LinkNode<T>* s=new ListNode<T> (a[i]);
+            LinkNode<T>* s=new LinkNode<T> (a[i]);
             temp->next=s;
             temp=s;
         }
@@ -212,7 +212,7 @@ void Deletemax(LinkList<T>& a)
             max=p->data;
         p=p->next;
     }
-    LinkNode<T>* pre=a.head //考虑到第一个可能是最大值
+    LinkNode<T>* pre=a.head; //考虑到第一个可能是最大值
     p=pre->next;//要注意需要更新p
     while(p!=nullptr)
     {
@@ -240,17 +240,79 @@ void Reverse1(LinkList<T>& a)
     while(p!=nullptr)
     {
         temp=p->next;
-        p->next=head->next;
-        head->next=p;
+        p->next=a.head->next;
+        a.head->next=p;
         p=temp;
     }
 }
 //2.一个一个来
 template<class T>
-void Reverse2(Linklist<T>& a)
+void Reverse2(LinkList<T>& a)
 {
     LinkNode<T>* p=a.head->next;
-    
+    if(p==nullptr) return ;
+    LinkNode<T>* q=p->next;
+    if(q==nullptr) return ;
+    LinkNode<T>* r=q->next;
+    p->next=nullptr;
+    while(r!=nullptr)
+    {
+        q->next=p;
+        p=q;
+        q=r;
+        r=r->next;
+    }
+    q->next=p;
+    a.head->next=q;
+}
+//头插法和尾插法的结合,将goal的奇数项顺着放入，将偶数项反着放入
+template<class T> 
+void Split(LinkList<T>& a,LinkList<T>& b,const LinkList<T>& goal)
+{
+    LinkNode<T>* p=goal.head->next;
+    LinkNode<T>* pa=a.head;
+    LinkNode<T>* pb=b.head;
+    LinkNode<T>* temp;//用来储存尾插法时，暂时保存下一个节点
+    while(p!=nullptr)
+    {
+        pa->next=p;
+        pa=p;
+        p=p->next;
+        if(p!=nullptr)
+        {
+            temp=p->next;
+            p->next=pb->next;
+            pb->next=p;
+            p=temp;
+        }
+    }
+    r->next=nullptr//要记得把这个制空，否则如果goal有偶数节点，会导致分配不完全
+}
+//二路并归,将两个递增链表合并成一个
+template<class T>
+void Merge(LinkList<T>& a,LinkList<T>& b,LinkList<T>& ans)
+{
+    LinkNode<T>* pa=a.head->next;
+    LinkNode<T>* pb=b.head->next;
+    LinkNode<T>* ansp=ans.head;
+    while(pa!=nullptr&&pb!=nullptr)
+    {
+        if(pa->data<=pb->data)
+        {
+            ansp->next=pa;
+            ansp=pa;
+            pa=pa->next;
+        }
+        else
+        {
+            ansp->next=pb;
+            ansp=pb;
+            pb=pb->next;
+        }
+    }
+    ansp->next=nullptr;
+    if(pa!=nullptr) ansp->next=pa;
+    if(pb!=nullptr) ansp->next=pb;
 }
 int main()
 {
