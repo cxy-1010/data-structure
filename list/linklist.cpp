@@ -245,7 +245,13 @@ void Reverse1(LinkList<T>& a)
         p=temp;
     }
 }
-//
+//2.一个一个来
+template<class T>
+void Reverse2(Linklist<T>& a)
+{
+    LinkNode<T>* p=a.head->next;
+    
+}
 int main()
 {
     return 0;
