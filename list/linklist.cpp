@@ -286,7 +286,7 @@ void Split(LinkList<T>& a,LinkList<T>& b,const LinkList<T>& goal)
             p=temp;
         }
     }
-    r->next=nullptr//要记得把这个制空，否则如果goal有偶数节点，会导致分配不完全
+    pa->next=nullptr;//要记得把这个制空，否则如果goal有偶数节点，会导致分配不完全
 }
 //二路并归,将两个递增链表合并成一个
 template<class T>
