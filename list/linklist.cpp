@@ -314,6 +314,26 @@ void Merge(LinkList<T>& a,LinkList<T>& b,LinkList<T>& ans)
     if(pa!=nullptr) ansp->next=pa;
     if(pb!=nullptr) ansp->next=pb;
 }
+template<class T>
+void listsort(LinkList<T>& a)
+{
+    LinkNode<T>* p=a.head->next;
+    if(p==nullptr) return ;
+    LinkNode<T>* q=a.head->next->next;
+    if(q==nullptr) return ;
+    p->next=nullptr;
+    LinkNode<T>* temp,*iteratorp;
+    while(q!=nullptr)
+    {
+        temp=q->next;
+        iteratorp=a.head;
+        while(iteratorp->next!=nullptr&&iteratorp->next->data>q->data)
+            iteratorp=iteratorp->next;
+        q->next=iteratorp->next;
+        iteratorp->next=p;
+        q=temp;
+    } 
+}
 int main()
 {
     return 0;
