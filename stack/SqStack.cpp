@@ -109,8 +109,10 @@ private:
     bool minempty() {return mintop==-1;}
     bool minpush(const T& e)
     {
+        if(mintop>top) return false;
         mintop++;
         mindata[mintop]=e;
+        return true;
     }
     T minpop()
     {
@@ -137,7 +139,7 @@ public:
     bool empty(){return top==-1;}
     bool push(const T& e)
     {
-        if(top==Maxsize-1) return false;
+        if(top==MaxSize-1) return false;
         top++;
         data[top]=e;
         if(minempty()||mingettop()>=e)
