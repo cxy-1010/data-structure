@@ -330,7 +330,7 @@ void listsort(LinkList<T>& a)
         while(iteratorp->next!=nullptr&&iteratorp->next->data>q->data)
             iteratorp=iteratorp->next;
         q->next=iteratorp->next;
-        iteratorp->next=p;
+        iteratorp->next=q;
         q=temp;
     } 
 }

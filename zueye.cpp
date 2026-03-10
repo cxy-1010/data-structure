@@ -1,49 +1,63 @@
 # include <iostream>
-# include <vector>
-# include <fstream>
+# include <sstream>
 # include <string>
-# include <cmath>
+# include <vector>
+# include <deque>
 using namespace std;
-int getmax(int n)
-{
-    int max_i=-1;
-    while(n%2==0)
-    {
-        max_i=2;
-        n/=2;
-    }
-    for(int i=3;i<=sqrt(n);i+=2)
-    {
-        while(n%i==0)
-        {
-            max_i=i;
-            n/=i;
-        }
-    }
-    if(n>2) max_i=n;
-    return max_i;
-}
 int main()
 {
-    ifstream ifs("in.txt", ios::in);
-    if (!ifs.is_open()) return 0;
-
     int n;
-    if (!(ifs >> n)) return 0;
-    vector<int> a;
-    for(int i = 0; i < n; i++)
+    cin>>n;
+    cin.ignore();
+    string line;
+    vector<deque<string>> a(n);
+    for(int i=0;i<n;i++)
     {
-        int elem;
-        if (ifs >> elem) {
-            a.push_back(elem);
+        getline(cin,line);
+        istringstream iss(line);
+        string temp;
+        while(iss>>temp)
+            a[i].push_back(temp);
+    }
+    getline(cin,line);
+    string goal,goalindex,name;
+    vector<string> goallines;
+    while(getline(cin,line))
+    {
+        goallines.push_back(line);
+    }
+    cout<<"DEPARTS"<<endl;
+    int linesize=goallines.size();
+    for(int i=0;i<linesize;i++)
+    {
+        istringstream iss(goallines[i]);
+        iss>>goal;
+        if(goal=="LEAVES")
+        {
+            iss>>goalindex;
+            int index=stoi(goalindex)-1;
+            if(index >= 0 && index < n && !a[index].empty()) 
+            {
+                cout << a[index].front() << endl;
+                a[index].pop_front();            
+            }
+        }
+        if(goal=="ENTERS")
+        {
+            iss>>name;
+            iss>>goalindex;
+            int index=stoi(goalindex)-1;
+            if(index >= 0 && index < n) a[index].push_back(name);
         }
     }
-    int size=a.size(),ans=-1,max=0;
-    for(int i=0;i<size;i++)
+    cout<<endl;
+    cout<<"FINAL CONTENTS"<<endl;
+    for(int i=0;i<n;i++)
     {
-        int temp=getmax(a[i]);
-        if(temp>max) {max=temp;ans=a[i];}
+        cout<<"queue "<<i+1<<':';
+        int size=a[i].size();
+        for(int j=0;j<size;j++)
+            cout<<' '<<a[i][j];
+        cout<<endl;
     }
-    cout<<ans<<endl;
-    return 0;
 }
