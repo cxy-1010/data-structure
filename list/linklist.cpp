@@ -6,7 +6,7 @@ template<class T>
 struct LinkNode
 {
     T data;
-    LinkNode<T>* next;
+    LinkNode<T>* next;//递归定义
     LinkNode():next(nullptr) {}
     LinkNode(T d):data(d),next(nullptr){}
 };
