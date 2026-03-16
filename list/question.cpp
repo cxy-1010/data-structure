@@ -118,3 +118,55 @@ int main()
     a2.head->next = nullptr;
     return 0;
 }
+/*
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<algorithm>
+#include<map>
+struct LinkNode{
+    string address;
+    int value;
+    string next;
+    LinkNode():next("-2"){}
+    LinkNode(string a,int v,string next="-2"):address(a),value(v),next(next){};
+};
+
+int main(){
+    vector<LinkNode>p,q;
+    string address,value,next="-2",headaddress;
+    int n;
+    cin>>headaddress>>n;
+    for(int i=0;i<n;i++){
+    cin>>address>>value>>next;
+    p.emplace_back(address,value,next);
+    }
+    for(auto&i:p){
+        if(i.address==headaddress){
+            q.push_back(i);
+        }
+    }
+    for(int i=0;i<n-1;i++){
+        for(auto&j:p){
+            if(j.address==q[i].next){
+                q.push_back(j);
+            }
+        }
+    }
+    int i=0,j=n-1;
+    while(i<j){
+        cout<<q[j].address<<" "<<q[j].value<<" "<<q[i].address<<endl;
+        j--;
+        if(j!=i){
+        cout<<q[i].address<<" "<<q[i].value<<" "<<q[j].address<<endl;}
+        else{
+            cout<<q[i].address<<" "<<q[i].value<<" "<<-1<<endl;
+        }
+        i++;
+    }
+    if(i==j){
+        cout<<q[i].address<<" "<<q[i].value<<" "<<-1<<endl;
+    }
+    return 0;
+}
+*/
