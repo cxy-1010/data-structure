@@ -47,9 +47,9 @@ void Comb(CDLinkList<T>& a,CDLinkList<T>& b)
     //再b尾接上ahead
     CDLinkNode<T>* btail=b.head->prior;
     btail->next=a.head;
-    a.head->prior=btail;
+    a.head->prior=btail;   
 
-    // 4. 重要：重置链表 b，防止析构时误删 a 的节点
+    // 4. 重要：重置链表 b，防止析构时误删 a 的节点   重要
     b.head->next = b.head;
     b.head->prior = b.head;
 }

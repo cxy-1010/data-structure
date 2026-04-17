@@ -36,13 +36,6 @@ int main()
 {
     ifstream ifs("in.txt",ios::in);
     int n;
-    ifs>>n;
-    int count=0;
-    int col_count=0;
-    vector<int> row;
-    vector<int> diagonal1;
-    vector<int> diagonal2;
-    put(count,n,col_count,row,diagonal1,diagonal2);
-    cout<<count<<endl;
+    ifs>>n;    
     return 0;
 }
