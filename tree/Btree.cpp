@@ -1,4 +1,6 @@
 # include <iostream>
+# include <algorithm>
+# include <vector>
 # include <stack>
 using namespace std;
 struct BTNode
@@ -180,6 +182,94 @@ public:
         swap(p->lchild,p->rchild);
         Swap11(p->lchild);
         Swap11(p->rchild);
+    }
+    int level(BTree& bt,char x){return level1(bt,x,1);}
+    int level1(BTNode* p,char x,int h)
+    {
+        if(p==nullptr) return nullptr;
+        if(p->data==x) return h;
+        int l;
+        l=level1(p->lchild,x,h+1);
+        if(l!=0) return l;
+        return level1(p->rchild,x,h+1);
+    }
+    void Trans(string sb,BTree& bt) {Trans1(sb,0,bt.r);}
+    void Trans1(string sb,int i,BTNode*& p)
+    {
+        if(i<sb.length())
+        {
+            if(sb[i]!='#')
+            {
+                p=new BTNode(sb[i]);
+                Trans1(sb,2*i+1,p->lchild);
+                Trans1(sb,2*i+2,p->rchild);
+            }
+            else p=nullptr;
+        }
+        else b=nullptr;
+    }
+    int KCount(BTree& bt,int k)
+    {
+        int count=0;
+        KCount1(bt.r,1,k,count);
+        return count;
+    }
+    void KCount1(BTNode* p,int h,int k,int& count)
+    {
+        if(p==nullptr) return ;
+        if(h==k) count++;
+        else
+        {
+            KCount1(p->lchild,h+1,k,count);
+            KCount1(p->rchild,h+1,k,count);
+        }
+    }
+    void Ancestor1(BTree& bt,char x,vector<char>& res)
+    {
+        Ancestor11(bt.r,x,res);
+        reverse(ans.begin(),ans.end());
+    }
+    void Ancestor11(BTNode* p,char x,vector<char>& res)
+    {
+        if(p==nullptr) return false;
+        if(p->lchild==nullptr&&p->rchild->data==x) 
+        {
+            res.push_back(p->data);
+            return true;
+        }
+        if(p->lchild->data==x&&p->rchild==nullptr)
+        {
+            res.push_back(p->data);
+            return true;
+        }
+        if(Ancestor11(p->lchild,x,res)||Ancestor11(p->rchild,x,res))
+        {
+            res.push_back(p->data);
+            return true;
+        }
+        return false;
+    }
+    void Ancestor2(BTree& bt,char x,vector<char>& res)
+    {
+        vector<char> path;
+        Ancestor22(bt.r,x,path,res);
+    }
+    void Ancestor22(BTNode* p,char x,vector<char> path,vector<char>& res)
+    {
+        if(p==nullptr) return ;
+        path.push_back(p->data);
+        if(p->data==x)
+        {
+            path.pop_back();
+            res=path;
+            return ;
+        }
+        Ancestor22(p->lchild,x,path,res);
+        Ancestor22(p->rchild,x,path,res);
+    }
+    void Ancestor3(BTree& bt,char x,vector<char>& res)
+    {
+        
     }
 };
 int main()
